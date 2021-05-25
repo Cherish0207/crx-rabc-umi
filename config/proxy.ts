@@ -13,6 +13,13 @@ export default {
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },
+    '/server/api/': {
+      target: 'http://localhost:7001/',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/server': '', // /server/api/login --> /api/login
+      },
+    },
   },
   test: {
     '/api/': {
