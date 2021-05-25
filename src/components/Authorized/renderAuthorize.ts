@@ -8,6 +8,7 @@ type CurrentAuthorityType = string | string[] | (() => typeof CURRENT);
  *
  * @param {string|()=>String} currentAuthority
  */
+// renderAuthorize=[admin] CURRENT=[admin] 取当权localstorage最新值currentAuthority 传给CURRENT
 const renderAuthorize = <T>(Authorized: T): ((currentAuthority: CurrentAuthorityType) => T) => (
   currentAuthority: CurrentAuthorityType,
 ): T => {

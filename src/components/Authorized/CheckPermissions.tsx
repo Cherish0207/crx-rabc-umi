@@ -84,5 +84,13 @@ export { checkPermissions };
 function check<T, K>(authority: IAuthorityType, target: T, Exception: K): T | K | React.ReactNode {
   return checkPermissions<T, K>(authority, CURRENT, target, Exception);
 }
-
+/**
+ * check是一个函数，用来决定是否渲染组件
+ * authority=['admin','user']是组件属性，表示要渲染这个组件，需要什么角色。可以是string/array
+ * return checkPermissions<T, K>(authority, CURRENT, target, Exception)
+ * current=当前用户的角色数组['admin']
+ * target 要渲染的目标组件，权限判断成功了，渲染哪个组件
+ * exception 鉴权失败了｜没有访问权限，渲染哪个组件
+ *
+ */
 export default check;
