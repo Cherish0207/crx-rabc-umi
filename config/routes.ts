@@ -38,22 +38,26 @@
                 name: 'admin',
                 icon: 'crown',
                 component: './Admin',
-                authority: ['admin'],
                 routes: [
                   {
-                    path: '/admin/sub-page',
-                    name: 'sub-page',
-                    icon: 'smile',
-                    component: './Welcome',
+                    path: '/admin/role',
+                    name: '角色管理',
+                    component: './admin/Role',
                     authority: ['admin'],
                   },
+                  {
+                    path: '/admin/permission',
+                    name: '权限管理',
+                    component: './admin/Permission',
+                    authority: ['admin'],
+                  },
+                  {
+                    path: '/admin/user',
+                    name: '用户管理',
+                    component: './admin/User',
+                    authority: ['admin', 'user'],
+                  },
                 ],
-              },
-              {
-                name: 'list.table-list',
-                icon: 'table',
-                path: '/list',
-                component: './TableList',
               },
               {
                 component: './404',
