@@ -2,7 +2,7 @@ import { stringify } from 'querystring';
 import type { Reducer, Effect } from 'umi';
 import { history } from 'umi';
 
-import { fakeAccountLogin } from '@/services/login';
+import { accountLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 import { message } from 'antd';
@@ -34,7 +34,7 @@ const Model: LoginModelType = {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      const response = yield call(accountLogin, payload);
       yield put({
         type: 'changeLoginStatus',
         payload: response,
@@ -81,6 +81,14 @@ const Model: LoginModelType = {
   reducers: {
     changeLoginStatus(state, { payload }) {
       setAuthority(payload.currentAuthority);
+      /**
+       * 1.用户登录，服务器返回 currentAuthority ，
+       * 2.ant-design-pro会执行 setAuthority(currentAuthority) 函数
+       *   (1)转成数组存放到 localstorage 里，antd-pro-authority=['user']
+       *   (2)reloadAuthorized()刷新权限，把['user']赋给CURRENT
+       *      Authorized = RenderAuthorize(getAuthority()【=>取出 localstorage 中的currentAuthority】);
+       * 3.鉴权组件Authorized会重新刷新，如果角色匹配就会渲染，如果不匹配，则渲染noMatch组件
+       */
       return {
         ...state,
         status: payload.status,
